@@ -4,95 +4,10 @@ import { connect } from "./redux/blockchain/blockchainActions";
 import { fetchData } from "./redux/data/dataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
+import { CardContent } from "@material-ui/core";
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
-
-export const StyledButton = styled.button`
-  padding: 10px;
-  border-radius: 50px;
-  border: none;
-  background-color: var(--secondary);
-  padding: 10px;
-  font-weight: bold;
-  color: var(--secondary-text);
-  width: 100px;
-  cursor: pointer;
-  box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
-  -webkit-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
-  -moz-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
-  :active {
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-  }
-`;
-
-export const StyledRoundButton = styled.button`
-  padding: 10px;
-  border-radius: 100%;
-  border: none;
-  background-color: var(--primary);
-  padding: 10px;
-  font-weight: bold;
-  font-size: 15px;
-  color: var(--primary-text);
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 4px 0px -2px rgba(250, 250, 250, 0.3);
-  -webkit-box-shadow: 0px 4px 0px -2px rgba(250, 250, 250, 0.3);
-  -moz-box-shadow: 0px 4px 0px -2px rgba(250, 250, 250, 0.3);
-  :active {
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-  }
-`;
-
-export const ResponsiveWrapper = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: stretched;
-  align-items: stretched;
-  width: 100%;
-  @media (min-width: 767px) {
-    flex-direction: row;
-  }
-`;
-
-export const StyledLogo = styled.img`
-  width: 200px;
-  @media (min-width: 767px) {
-    width: 300px;
-  }
-  transition: width 0.5s;
-  transition: height 0.5s;
-`;
-
-export const StyledImg = styled.img`
-  box-shadow: 0px 5px 11px 2px rgba(0, 0, 0, 0.7);
-  border: 4px dashed var(--secondary);
-  background-color: var(--accent);
-  border-radius: 100%;
-  width: 200px;
-  @media (min-width: 900px) {
-    width: 250px;
-  }
-  @media (min-width: 1000px) {
-    width: 300px;
-  }
-  transition: width 0.5s;
-`;
-
-export const StyledLink = styled.a`
-  color: var(--secondary);
-  text-decoration: none;
-`;
 
 function App() {
   const dispatch = useDispatch();
@@ -197,16 +112,19 @@ function App() {
     <s.Screen>
       <s.Container
         flex={1}
+        jc = {"space-evenly"}
         ai={"center"}
         style={{ padding: 24, backgroundColor: "var(--primary)" }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
       >
-        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+          <s.Heading>NFT MINTER</s.Heading>
         <s.SpacerSmall />
-        <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
-          <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg alt={"example"} src={"/config/images/example.gif"} />
-          </s.Container>
+        <s.StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+        <s.SpacerSmall />
+        <s.ResponsiveWrapper flex={1} style={{ }} test>
+          {/* <s.Container flex={1} jc={"center"} ai={"center"}>
+            <s.StyledImg alt={"example"} src={"/config/images/example.gif"} />
+          </s.Container> */}
           <s.SpacerLarge />
           <s.Container
             flex={2}
@@ -214,10 +132,10 @@ function App() {
             ai={"center"}
             style={{
               backgroundColor: "var(--accent)",
-              padding: 24,
               borderRadius: 24,
-              border: "4px dashed var(--secondary)",
               boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
+              maxWidth: "700px",
+              padding: 10
             }}
           >
             <s.TextTitle
@@ -236,9 +154,9 @@ function App() {
                 color: "var(--primary-text)",
               }}
             >
-              <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
+              <s.StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
                 {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
-              </StyledLink>
+              </s.StyledLink>
             </s.TextDescription>
             <s.SpacerSmall />
             {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
@@ -254,9 +172,9 @@ function App() {
                   You can still find {CONFIG.NFT_NAME} on
                 </s.TextDescription>
                 <s.SpacerSmall />
-                <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
+                <s.StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
                   {CONFIG.MARKETPLACE}
-                </StyledLink>
+                </s.StyledLink>
               </>
             ) : (
               <>
@@ -285,7 +203,7 @@ function App() {
                       Connect to the {CONFIG.NETWORK.NAME} network
                     </s.TextDescription>
                     <s.SpacerSmall />
-                    <StyledButton
+                    <s.StyledButton
                       onClick={(e) => {
                         e.preventDefault();
                         dispatch(connect());
@@ -293,7 +211,7 @@ function App() {
                       }}
                     >
                       CONNECT
-                    </StyledButton>
+                    </s.StyledButton>
                     {blockchain.errorMsg !== "" ? (
                       <>
                         <s.SpacerSmall />
@@ -320,7 +238,7 @@ function App() {
                     </s.TextDescription>
                     <s.SpacerMedium />
                     <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                      <StyledRoundButton
+                      <s.StyledRoundButton
                         style={{ lineHeight: 0.4 }}
                         disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
@@ -329,7 +247,7 @@ function App() {
                         }}
                       >
                         -
-                      </StyledRoundButton>
+                      </s.StyledRoundButton>
                       <s.SpacerMedium />
                       <s.TextDescription
                         style={{
@@ -340,7 +258,7 @@ function App() {
                         {mintAmount}
                       </s.TextDescription>
                       <s.SpacerMedium />
-                      <StyledRoundButton
+                      <s.StyledRoundButton
                         disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
@@ -348,11 +266,11 @@ function App() {
                         }}
                       >
                         +
-                      </StyledRoundButton>
+                      </s.StyledRoundButton>
                     </s.Container>
                     <s.SpacerSmall />
                     <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                      <StyledButton
+                      <s.StyledButton
                         disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
@@ -361,7 +279,7 @@ function App() {
                         }}
                       >
                         {claimingNft ? "BUSY" : "BUY"}
-                      </StyledButton>
+                      </s.StyledButton>
                     </s.Container>
                   </>
                 )}
@@ -370,16 +288,16 @@ function App() {
             <s.SpacerMedium />
           </s.Container>
           <s.SpacerLarge />
-          <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg
+          {/* <s.Container flex={1} jc={"center"} ai={"center"}>
+            <s.StyledImg
               alt={"example"}
               src={"/config/images/example.gif"}
               style={{ transform: "scaleX(-1)" }}
             />
-          </s.Container>
-        </ResponsiveWrapper>
+          </s.Container> */}
+        </s.ResponsiveWrapper>
         <s.SpacerMedium />
-        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+        {/* <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
           <s.TextDescription
             style={{
               textAlign: "center",
@@ -401,7 +319,7 @@ function App() {
             successfully mint your NFT. We recommend that you don't lower the
             gas limit.
           </s.TextDescription>
-        </s.Container>
+        </s.Container> */}
       </s.Container>
     </s.Screen>
   );
