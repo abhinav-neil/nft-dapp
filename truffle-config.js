@@ -7,6 +7,7 @@ const {
 } = require('./secrets.json');
 
 module.exports = {
+  build_directory: './contracts/build',
   networks: {
     development: {
       host: '127.0.0.1', 
